@@ -10,6 +10,11 @@ function myMethod() {
     console.log("メソッド実行")
 }
 const name = ref("")
+const fruitsList = [
+    {id: 1, name: "りんご"},
+    {id: 2, name: "いちご"},
+    {id: 3, name: "バナナ"}
+    ]
 </script>
 
 <template>
@@ -31,4 +36,8 @@ const name = ref("")
         <input type="text" id="name" v-model="name">
         <p>入力された名前：{{ name }}</p>
     </div>
+    <!-- v-for -->
+     <ul>
+        <li v-for="fruit in fruitsList" :key="fruit.id">{{ fruit.name }}</li>
+     </ul>
 </template>
