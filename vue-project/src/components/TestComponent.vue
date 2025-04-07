@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue';
+
 defineProps({
     text: String,
 });
@@ -7,6 +9,7 @@ const imageUrl = "/sample.png"
 function myMethod() {
     console.log("メソッド実行")
 }
+const name = ref("")
 </script>
 
 <template>
@@ -22,4 +25,10 @@ function myMethod() {
     <button v-on:click="myMethod">メソッド実行</button>
     <!-- イベントバインディング(省略版) -->
     <button @click="myMethod">メソッド実行</button>
+    <!-- 双方向バインディング -->
+    <div>
+        <label for="name">名前：</label>
+        <input type="text" id="name" v-model="name">
+        <p>入力された名前：{{ name }}</p>
+    </div>
 </template>
