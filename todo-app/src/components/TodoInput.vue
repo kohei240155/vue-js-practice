@@ -2,11 +2,16 @@
 import { statuses } from '@/const/statuses';
 import { ref } from 'vue';
 
-const input = ref("")
-const inputDate = ref("")
+const input = ref("");
+const inputDate = ref("");
+const isErrMsg = ref(false);
 
 function onSubmitForm() {
-    console.log(input.value)
+    if (input.value == "" || inputDate.value == "") {
+        isErrMsg.value = true;
+        event.preventDefault();
+        return;
+    }
 
     const items = JSON.parse(localStorage.getItem("items")) || [];
 
@@ -26,6 +31,7 @@ function onSubmitForm() {
 
 <template>
     <div>
+        <p v-if="isErrMsg">タスク・期限を両方入力してください。</p>
         <form v-on:submit="onSubmitForm">
             <label>やること<input type="text" v-model="input"/></label>
             <label>期限<input type="date" v-model="inputDate"/></label>
