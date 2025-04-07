@@ -34,6 +34,10 @@ onBeforeUpdate(() => {
 onUpdated(() => {
     console.log("updated フック: コンポーネントが再描画された直後")
 })
+const emit = defineEmits(['message'])
+function sendMessage() {
+    emit("message", "子コンポーネントから送られたデータ")
+}
 </script>
 
 <template>
@@ -71,4 +75,6 @@ onUpdated(() => {
     <!-- Setup -->
      <p>{{ count }}</p>
      <button v-on:click="increment">カウントアップ</button>
+    <!-- emit -->
+    <button @click="sendMessage">メッセージを送る</button>
 </template>
