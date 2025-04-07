@@ -16,6 +16,10 @@ const fruitsList = [
     {id: 3, name: "バナナ"}
     ]
 const number = 5
+const count = ref(0)
+const increment = () => {
+    count.value++
+}
 </script>
 
 <template>
@@ -50,4 +54,7 @@ const number = 5
     <div>
         <p v-show="number < 10">数字は10より小さいです(v-show)</p>
     </div>
+    <!-- Setup -->
+     <p>{{ count }}</p>
+     <button v-on:click="increment">カウントアップ</button>
 </template>
