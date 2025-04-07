@@ -43,7 +43,11 @@ const number = 5
      </ul>
     <!-- v-if -->
     <div>
-        <p v-if="number < 10">数字は10より小さいです</p>
-        <p v-else>数字は10より大きいです</p>
+        <p v-if="number < 10">数字は10より小さいです(v-if)</p>
+        <p v-else>数字は10より大きいです(v-if)</p>
+    </div>
+    <!-- v-show -->
+    <div>
+        <p v-show="number < 10">数字は10より小さいです(v-show)</p>
     </div>
 </template>
