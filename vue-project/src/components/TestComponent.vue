@@ -15,6 +15,7 @@ const fruitsList = [
     {id: 2, name: "いちご"},
     {id: 3, name: "バナナ"}
     ]
+const number = 5
 </script>
 
 <template>
@@ -40,4 +41,9 @@ const fruitsList = [
      <ul>
         <li v-for="fruit in fruitsList" :key="fruit.id">{{ fruit.name }}</li>
      </ul>
+    <!-- v-if -->
+    <div>
+        <p v-if="number < 10">数字は10より小さいです</p>
+        <p v-else>数字は10より大きいです</p>
+    </div>
 </template>
