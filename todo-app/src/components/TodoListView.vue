@@ -10,6 +10,10 @@ let inputState = ref("");
 
 let isErrMsg = ref(false);
 
+let isShowModal = ref(false);
+
+let deleteItemId = '';
+
 function onEdit(id) {
     inputContent.value = items.value[id].content;
     inputLimit.value = items.value[id].limit;
@@ -36,10 +40,38 @@ function onUpdate(id) {
     localStorage.setItem("items", JSON.stringify(items.value));
     isErrMsg.value = false;
 }
+
+function showDeleteModal(id) {
+    isShowModal.value = true;
+    deleteItemId = id;
+}
+
+function onDeleteItem() {
+    items.value.splice(deleteItemId, 1);
+    items.value = items.value.map((item, index) => ({
+        id: index,
+        content: item.content,
+        limit: item.limit,
+        state: item.state,
+        onEdit: item.onEdit,
+    }))
+    isShowModal.value = false;
+}
+
+function onHideModal() {
+    isShowModal.value = false;
+}
 </script>
 
 <template>
     <p v-if="isErrMsg">タスク・期限を両方入力してください。</p>
+    <div v-if="isShowModal" class="modal">
+        <div class="modal-content">
+            <p>削除してもよろしいですか？</p>
+            <button @click="onDeleteItem()">はい</button>
+            <button @click="onHideModal()">キャンセル</button>
+        </div>
+    </div>
     <table>
         <tr>
             <th class="th-id">ID</th>
@@ -76,7 +108,26 @@ function onUpdate(id) {
                 <button v-if="!item.onEdit" @click="onEdit(item.id)">編集</button>
                 <button v-else @click="onUpdate(item.id)">完了</button>
             </td>
-            <td><button>削除</button></td>
+            <td><button @click="showDeleteModal">削除</button></td>
         </tr>
     </table>
 </template>
+
+<style>
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+</style>
