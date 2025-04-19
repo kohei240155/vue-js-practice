@@ -13,6 +13,7 @@ let isErrMsg = ref(false);
 let isShowModal = ref(false);
 
 let deleteItemId = '';
+let deleteItemContent = ref("");
 
 function onEdit(id) {
     inputContent.value = items.value[id].content;
@@ -44,6 +45,7 @@ function onUpdate(id) {
 function showDeleteModal(id) {
     isShowModal.value = true;
     deleteItemId = id;
+    deleteItemContent.value = items.value[id].content;
 }
 
 function onDeleteItem() {
@@ -68,7 +70,7 @@ function onHideModal() {
     <p v-if="isErrMsg">タスク・期限を両方入力してください。</p>
     <div v-if="isShowModal" class="modal">
         <div class="modal-content">
-            <p>削除してもよろしいですか？</p>
+            <p>{{deleteItemContent}}を削除してもよろしいですか？</p>
             <button @click="onDeleteItem()">はい</button>
             <button @click="onHideModal()">キャンセル</button>
         </div>
@@ -109,7 +111,7 @@ function onHideModal() {
                 <button v-if="!item.onEdit" @click="onEdit(item.id)">編集</button>
                 <button v-else @click="onUpdate(item.id)">完了</button>
             </td>
-            <td><button @click="showDeleteModal">削除</button></td>
+            <td><button @click="showDeleteModal(item.id)">削除</button></td>
         </tr>
     </table>
 </template>
