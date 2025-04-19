@@ -55,6 +55,7 @@ function onDeleteItem() {
         state: item.state,
         onEdit: item.onEdit,
     }))
+    localStorage.setItem("items", JSON.stringify(items.value));
     isShowModal.value = false;
 }
 
